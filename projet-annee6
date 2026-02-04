@@ -1,0 +1,144 @@
+filtration-eau/
+ ├── index.html
+ ├── style.css
+ ├── script.js
+ └── Plan du système de filtration d'eau.png
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Filtration de l’Eau - Projet 6ème</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>💧 Système de Filtration de l’Eau</h1>
+  <h2>Projet interactif pour la 6ème année</h2>
+
+  <!-- IMAGE DU PLAN -->
+  <img src="Plan du système de filtration d'eau.png" width="700">
+
+  <p id="instruction">
+    Clique sur chaque filtre dans le bon ordre pour nettoyer l’eau !
+  </p>
+
+  <!-- ÉTAPES INTERACTIVES -->
+  <div class="filtration">
+
+    <div class="etape" onclick="filtrer(1)">🪨 Graviers</div>
+    <div class="etape" onclick="filtrer(2)">🏖️ Sable grossier</div>
+    <div class="etape" onclick="filtrer(3)">🏝️ Sable fin</div>
+    <div class="etape" onclick="filtrer(4)">⚫ Charbon</div>
+    <div class="etape" onclick="filtrer(5)">☁️ Coton</div>
+
+  </div>
+
+  <!-- RÉSULTAT -->
+  <div class="resultat">
+    <h3>Résultat :</h3>
+    <p id="etatEau">💧 Eau sale</p>
+  </div>
+
+  <button onclick="recommencer()">🔄 Recommencer</button>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: #e6f3ff;
+  padding: 20px;
+}
+
+h1 {
+  color: #003366;
+}
+
+img {
+  margin: 20px;
+  border-radius: 12px;
+  border: 3px solid #003366;
+}
+
+.filtration {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 30px 0;
+  flex-wrap: wrap;
+}
+
+.etape {
+  background: white;
+  border: 2px solid #003366;
+  padding: 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  width: 150px;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+.etape:hover {
+  background: #cce6ff;
+  transform: scale(1.05);
+}
+
+.resultat {
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+button {
+  margin-top: 25px;
+  padding: 12px 25px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  background: #003366;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #0055aa;
+}
+let etapeActuelle = 0;
+
+function filtrer(numero) {
+
+  if (numero === etapeActuelle + 1) {
+    etapeActuelle++;
+
+    let message = "";
+
+    if (etapeActuelle === 1)
+      message = "Les graviers arrêtent les gros déchets.";
+    if (etapeActuelle === 2)
+      message = "Le sable grossier bloque les particules plus petites.";
+    if (etapeActuelle === 3)
+      message = "Le sable fin filtre la poussière restante.";
+    if (etapeActuelle === 4)
+      message = "Le charbon enlève les odeurs et produits chimiques.";
+    if (etapeActuelle === 5)
+      message = "Le coton termine la filtration : l’eau devient claire.";
+
+    document.getElementById("etatEau").innerHTML =
+      "✅ Étape " + etapeActuelle + " terminée<br>" + message;
+
+    if (etapeActuelle === 5) {
+      document.getElementById("etatEau").innerHTML =
+        "🎉 Bravo ! L’eau est filtrée et beaucoup plus propre !";
+    }
+
+  } else {
+    alert("⚠️ Clique sur les étapes dans le bon ordre !");
+  }
+}
+
+function recommencer() {
+  etapeActuelle = 0;
+  document.getElementById("etatEau").innerHTML = "💧 Eau sale";
+}
